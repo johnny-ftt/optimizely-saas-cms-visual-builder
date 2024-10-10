@@ -41,6 +41,9 @@ export function middleware(request: NextRequest)
     if (isDev) {
         response.headers.set('X-Dev-Mode', 'true');
     }
+    else{
+        response.headers.set('X-Dev-Mode', 'false');
+    }
 
     // Make sure we're always in English - multi language is not supported yet
     if (!request.nextUrl.pathname.startsWith("/en")) {
