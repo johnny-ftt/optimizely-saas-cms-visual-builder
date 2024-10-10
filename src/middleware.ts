@@ -21,6 +21,8 @@ export function middleware(request: NextRequest)
     // Replace newline characters and spaces
     const contentSecurityPolicyHeaderValue = cspHeader.replace(/\s{2,}/g, ' ').trim()
 
+    console.log("Generated CSP Header:", contentSecurityPolicyHeaderValue);
+
     // Create response with modified headers
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-nonce', nonce);
