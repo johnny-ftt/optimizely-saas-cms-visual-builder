@@ -27,38 +27,38 @@ export function middleware(request: NextRequest)
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-nonce', nonce);
 
-    const response = NextResponse.next({
+    let response = NextResponse.next({
         request: {
             headers: requestHeaders,
         },
     });
 
-    // Add the CSP header to the response
-    response.headers.set('Content-Security-Policy', contentSecurityPolicyHeaderValue);
+  // Clone the response to set headers correctly
+  response = new NextResponse(response.body, response);
 
-    // Enable dev mode adjustments
-    const isDev = process.env.NODE_ENV !== 'production' || request.nextUrl.host.includes('localhost');
-    if (isDev) {
-        response.headers.set('X-Dev-Mode', 'true');
-    }
-    else{
-        response.headers.set('X-Dev-Mode', 'false');
-    }
+  // Add the CSP header to the response
+  response.headers.set('Content-Security-Policy', contentSecurityPolicyHeaderValue);
 
-    // Make sure we're always in English - multi language is not supported yet
-    if (!request.nextUrl.pathname.startsWith("/en")) {
-        const newUrl = request.nextUrl.clone();
-        newUrl.pathname = "/en" + newUrl.pathname;
-        return NextResponse.redirect(newUrl, {
-            status: isDev ? 307 : 308
-        });
-    }
+  // Enable dev mode adjustments
+  const isDev = process.env.NODE_ENV !== 'production' || request.nextUrl.host.includes('localhost');
+  if (isDev) {
+      response.headers.set('X-Dev-Mode', 'true');
+  }
 
-    // Assign a Visitor ID cookie, so we can identify and track individual visitors
-    // const visitorId = Session.getOrCreateVisitorId(request);
-    // Session.addVisitorId(response, visitorId);
+  // Make sure we're always in English - multi language is not supported yet
+  if (!request.nextUrl.pathname.startsWith("/en")) {
+      const newUrl = request.nextUrl.clone();
+      newUrl.pathname = "/en" + newUrl.pathname;
+      return NextResponse.redirect(newUrl, {
+          status: isDev ? 307 : 308
+      });
+  }
 
-    return response;
+  // Assign a Visitor ID cookie, so we can identify and track individual visitors
+//   const visitorId = Session.getOrCreateVisitorId(request);
+//   Session.addVisitorId(response, visitorId);
+
+  return response;
 }
 
 export const config = {
