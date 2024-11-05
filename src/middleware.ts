@@ -44,15 +44,18 @@ export function middleware(request: NextRequest)
   if (isDev) {
       response.headers.set('X-Dev-Mode', 'true');
   }
+  else{
+    response.headers.set('X-Prod-Mode', 'true');  
+  }
 
   // Make sure we're always in English - multi language is not supported yet
-  if (!request.nextUrl.pathname.startsWith("/en")) {
-      const newUrl = request.nextUrl.clone();
-      newUrl.pathname = "/en" + newUrl.pathname;
-      return NextResponse.redirect(newUrl, {
-          status: isDev ? 307 : 308
-      });
-  }
+  // if (!request.nextUrl.pathname.startsWith("/en")) {
+  //     const newUrl = request.nextUrl.clone();
+  //     newUrl.pathname = "/en" + newUrl.pathname;
+  //     return NextResponse.redirect(newUrl, {
+  //         status: isDev ? 307 : 308
+  //     });
+  // }
 
   // Assign a Visitor ID cookie, so we can identify and track individual visitors
 //   const visitorId = Session.getOrCreateVisitorId(request);
