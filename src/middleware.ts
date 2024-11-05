@@ -38,6 +38,7 @@ export function middleware(request: NextRequest)
 
   // Add the CSP header to the response
   response.headers.set('Content-Security-Policy', contentSecurityPolicyHeaderValue);
+  response.headers.set('Cache-Control', 'no-store');
 
   // Enable dev mode adjustments
   const isDev = process.env.NODE_ENV !== 'production' || request.nextUrl.host.includes('localhost');
