@@ -8,7 +8,7 @@ export function middleware(request: NextRequest)
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
     const cspHeader = `
         default-src 'self';
-        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${ optimizelyCmsUrl}' 'unsafe-eval';
+        script-src 'self' 'unsafe-inline' 'nonce-${nonce}' 'strict-dynamic' ${ optimizelyCmsUrl}' 'unsafe-eval';
         style-src 'self' 'unsafe-inline';
         img-src 'self' ${ optimizelyCmsUrl } blob: data:;
         font-src 'self';
