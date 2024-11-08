@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useRef, useState } from "react";
+import Script from 'next/script';
 import Logo from "./partials/_logo";
 import MainMenu from "./partials/_main-menu";
 import SecondaryMenu from "./partials/_secondary-menu";
@@ -79,8 +80,11 @@ export default function Header({ menuItems, utilityItems, logoItem, darkLogoItem
         onBlur={handleFocusLeave}
       >
 
-        <script src="https://cdn.optimizely.com/js/30534790004.js"></script>
-        
+      <Script
+            src="https://cdn.optimizely.com/js/3053749002.js"
+            strategy="beforeInteractive" // Loads the script as early as possible
+          />
+
         <div className="py-8 container mx-auto flex items-center w-full justify-between lg:justify-normal">
           <Logo ref={ logoRef } logoItem={ logoItem } darkLogoItem={ darkLogoItem } />
 
