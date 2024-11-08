@@ -78,6 +78,9 @@ export default function Header({ menuItems, utilityItems, logoItem, darkLogoItem
         onMouseEnter={handleMouseEnter}
         onBlur={handleFocusLeave}
       >
+
+        <script src="https://cdn.optimizely.com/js/30534790004.js"></script>
+        
         <div className="py-8 container mx-auto flex items-center w-full justify-between lg:justify-normal">
           <Logo ref={ logoRef } logoItem={ logoItem } darkLogoItem={ darkLogoItem } />
 
