@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from "react"
 import type { Metadata } from "next"
+import AuthProvider from '@/components/providers/session-provider'
 
 // Components
 import { MoseyBankHeader } from '@/components/header'
@@ -28,9 +29,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider value={{ theme: "system" }}>
             <Body className={`${figtree.className} bg-ghost-white text-vulcan dark:bg-vulcan dark:text-ghost-white`}>
                 <div className="flex min-h-screen flex-col justify-between">
-                    <MoseyBankHeader />
-                    {children}
-                    <MoseyBankFooter />
+                    <AuthProvider>
+                        <MoseyBankHeader />
+                        {children}
+                        <MoseyBankFooter />
+                    </AuthProvider>
                 </div>
             </Body>
         </ThemeProvider>
