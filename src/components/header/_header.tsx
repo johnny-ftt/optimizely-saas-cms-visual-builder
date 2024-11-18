@@ -80,10 +80,24 @@ export default function Header({ menuItems, utilityItems, logoItem, darkLogoItem
         onBlur={handleFocusLeave}
       >
 
-      <Script
-            src="https://cdn.optimizely.com/js/3053749002.js"
-            strategy="beforeInteractive" // Loads the script as early as possible
-          />
+    <Script
+        id="optimizely-script"
+        src="https://cdn.optimizely.com/js/3053749002.js"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.optimizely = window.optimizely || [];
+            window.optimizely.push({
+              "type": "user",
+              "attributes": {
+                "preferenceLoans": true,
+                "preferenceCreditCards": false,
+                "preferenceMortgages": true
+              }
+            });
+          `
+        }}
+      />
 
         <div className="py-8 container mx-auto flex items-center w-full justify-between lg:justify-normal">
           <Logo ref={ logoRef } logoItem={ logoItem } darkLogoItem={ darkLogoItem } />

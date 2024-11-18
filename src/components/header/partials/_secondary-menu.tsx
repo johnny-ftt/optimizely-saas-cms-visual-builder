@@ -44,7 +44,7 @@ const SecondaryMenu = forwardRef<HTMLUListElement>((props, ref) => {
                                 onClick={handleLogout}
                                 buttonType={item.buttonType as ButtonProps["buttonType"] ?? 'primary'} 
                                 buttonVariant={item.variant as ButtonProps["buttonVariant"] ?? 'default'}
-                                className={item.className}
+                                className={item.className ?? undefined}
                             >
                                 Logout
                             </Button>
